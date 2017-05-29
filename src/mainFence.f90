@@ -67,12 +67,13 @@
          INTEGER(KIND=MPI_ADDRESS_KIND) :: sizeOfSchritt2
          INTEGER(KIND=MPI_ADDRESS_KIND) :: sizeOfSchritt3D1
          INTEGER(KIND=MPI_ADDRESS_KIND) :: sizeOfSchritt3D3
-         INTEGER                        :: sizeOfSchritt3Max
+         INTEGER(KIND=MPI_ADDRESS_KIND) :: sizeOfSchritt3Max
          INTEGER(KIND=MPI_ADDRESS_KIND) :: s3TargetDisp
          INTEGER                        :: memModel
          LOGICAL                        :: flag
          INTEGER                        :: lb, extent
-         INTEGER                        :: prec_mpi, sizeOfprec_mpi
+         INTEGER                        :: prec_mpi
+         INTEGER                        :: sizeOfprec_mpi
          !--------------------------------------------------------------
          !--------------Hauptprogramm-----------------------------------
          !--------------------------------------------------------------        
@@ -218,9 +219,12 @@
                   sizeOfprec_mpi,MPI_INFO_NULL,MPI_COMM_WORLD,s3Win3D, &
                   ierror)
          CALL testForError(ierror, "MPI: Create s3Win3D")
-         CALL MPI_WIN_CREATE(stelle_max,sizeOfprec_mpi ,&
-                  sizeOfSchritt3Max,MPI_INFO_NULL,MPI_COMM_WORLD,&
+         CALL MPI_WIN_CREATE(zaehler, sizeOfSchritt2,&
+                  sizeOfprec_mpi, MPI_INFO_NULL,MPI_COMM_WORLD,&
                   s3WinMax, ierror)
+         !CALL MPI_WIN_CREATE(stelle_max, sizeOfSchritt3Max,&
+         !         sizeOfprec_mpi, MPI_INFO_NULL,MPI_COMM_WORLD,&
+         !         s3WinMax, ierror)
          CALL testForError(ierror, "MPI: Create s3WinMax")
          WRITE(master,*) "Fenstererstellung erfolgreich abgeschlossen"
          !-------------------------------------------------------------
