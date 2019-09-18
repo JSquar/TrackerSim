@@ -1,5 +1,9 @@
-FC= mpif90
-FCFLAGS = -fbounds-check -Werror -fopenmp
+FC= /home/squar/MPI/OpenMPI/bin/mpif90 OMPI_FC=flang
+#FC=flang
+#FC= mpif90
+#FCFLAGS = -fbounds-check -Werror -fopenmp
+FCFLAGS = -fbounds-check -fopenmp
+#FCFLAGS = -fopenmp -S -emit-llvm
 
 PROGRAMS = mainSMP.x mainFence.x mainLock.x mainShared.x mainSharedNoRMAInnerLocks.x mainSharedNoRMAOuterLocks.x
 DEPENDENCIES = dataTypesMod.o printsMod.o computationMod.o benchmarkUtilityMod.o 
@@ -41,7 +45,7 @@ mainSharedNoRMAOuterLocks.x: $(DEPENDENCIES)
 .PHONY: clean cleanall
 
 clean:
-	 rm -f *.o *.mod *.MOD 
+	 rm -f *.o *.mod *.MOD *.ll
 
 cleanall: clean
 	 rm -f $(PROGRAMS)

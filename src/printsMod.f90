@@ -11,6 +11,7 @@
 
          MODULE printsMod
          USE dataTypesMod
+         USE mpi
          CONTAINS
             !Einfache Debugginganweisungen
             SUBROUTINE infoPrint(verbose,pve_grid,container,pos)
